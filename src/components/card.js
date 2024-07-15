@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Card = ({light}) => {
     const [data , setData] = useState([]);
     const [uniqueCreatorArray, setUniqueCreatorArray] = useState([]);
+    const [lig, setLig] = useState(true);
     const navigate = useNavigate();
 
   const getData = async () => {
@@ -19,7 +20,6 @@ const Card = ({light}) => {
         const jsonData = await response.json();
         const userData = jsonData.data.data;
         allData = [...allData, ...userData];
-        console.log(jsonData);
       }
       setData(allData);
     } catch (error) {
@@ -29,6 +29,7 @@ const Card = ({light}) => {
 
   useEffect(() => {
     getData();
+    setLig(light);
   }, []);
 
   useEffect(() => {
@@ -41,9 +42,6 @@ const Card = ({light}) => {
     }, {});
     setUniqueCreatorArray(Object.values(uniqueCreators));
   }, [data]);
-
-  console.log(data);
-  console.log(uniqueCreatorArray);
 
   function getInitials(name) {
     const parts = name.split(" ");
@@ -68,7 +66,7 @@ const Card = ({light}) => {
               <div
                 className={`card-body ${light ? "light-card-body" : ""}`}
                 key={ind}
-                onClick={() => navigate(`/chat/${val.id}/${val.creator.name}/${light}`)}
+                onClick={() => navigate(`/chat/${val.id}/${val.creator.name}/${lig}`)}
               >
                 <div className="logo">
                   {val.creator.name ? getInitials(val.creator.name) : "NA"}

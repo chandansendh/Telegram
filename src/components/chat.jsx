@@ -9,8 +9,6 @@ const Chat = () => {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const {id,name,light}= useParams();
-    console.log(id);
-
     const getChatData = async(id)=>{
         console.log(id,name);
         const responce = await fetch(
@@ -56,7 +54,7 @@ const Chat = () => {
   return (
     <>
       <div className="chat">
-        <div className={`chat-head ${light ? "light-chat-head" : ""}`}>
+        <div className={`chat-head ${light? "light-chat-head" : ""}`}>
           <div className="arrow" onClick={() => navigate("/")}>
             <FaArrowLeft />
           </div>
